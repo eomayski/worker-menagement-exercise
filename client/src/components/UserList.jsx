@@ -1,3 +1,4 @@
+import UserDetails from "./UserDetails.jsx"
 import UserItem from "./UserItem.jsx"
 
 function UserList({
@@ -66,6 +67,7 @@ function UserList({
                         {users.map(user => <UserItem key={user._id} {...user} />)}
                     </tbody>
                 </table>
+                <UserDetails/>
             </div>
     )
 }
