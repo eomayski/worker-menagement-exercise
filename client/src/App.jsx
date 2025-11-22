@@ -1,4 +1,3 @@
-import AddUser from "./components/AddUser.jsx";
 import Footer from "./components/Footer.jsx"
 import Header from "./components/Header.jsx"
 import Pagination from "./components/Pagination.jsx";
@@ -15,7 +14,6 @@ function App() {
                 <section className="card users-container">
                     <Search />
                     <UserList/>
-                    <AddUser/>
                     <Pagination/>
                 </section>
 
