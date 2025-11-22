@@ -1,22 +1,10 @@
-import { useEffect } from "react"
 import UserItem from "./UserItem.jsx"
-import { useState } from "react";
 
-function UserList() {
-
-    const[users, setUsers] = useState([]);
-
-    useEffect(() => {
-        fetch('http://localhost:3030/jsonstore/users')
-            .then(response => response.json())
-            .then(result => {
-                setUsers(Object.values(result));
-            })
-            .catch((err) => alert(err.message));
-    }, [])
+function UserList({
+    users,
+}) {
 
     return (
-        <>
             <div className="table-wrapper">
                 <table className="table">
                     <thead>
@@ -79,8 +67,6 @@ function UserList() {
                     </tbody>
                 </table>
             </div>
-            <button className="btn-add btn">Add new user</button>
-        </>
     )
 }
 
