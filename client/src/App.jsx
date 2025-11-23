@@ -4,13 +4,13 @@ import Header from "./components/Header.jsx"
 import Pagination from "./components/Pagination.jsx";
 import Search from "./components/Search.jsx";
 import UserList from "./components/UserList.jsx";
-import CreateUser from "./components/CreateUser.jsx";
+import UserCreateModal from "./components/UserCreateModal.jsx";
 import { useEffect } from "react";
 
 function App() {
     const[users, setUsers] = useState([]);
     const [showCreateUser, setShowCreateUser] = useState(false)
-    const [forceRefresh, setForceRefresh] = useState(true)
+    const [refresh, setRefresh] = useState(true)
 
     useEffect(() => {
         fetch('http://localhost:3030/jsonstore/users')
@@ -19,7 +19,11 @@ function App() {
                 setUsers(Object.values(result));
             })
             .catch((err) => alert(err.message));
-    }, [forceRefresh]);
+    }, [refresh]);
+
+    const forceRefresh = () => {
+        setRefresh(state => !state)
+    }
 
     const addUserClickHandler = () => {
         setShowCreateUser(true);
@@ -55,7 +59,7 @@ function App() {
         })
         .then(() => {
             addUserCloseHandler()
-            setForceRefresh(state => !state)
+            forceRefresh()
         })
         .catch(err => alert(err.message))
     };
@@ -67,7 +71,7 @@ function App() {
 
                 <section className="card users-container">
                     <Search />
-                    <UserList users={users}/>
+                    <UserList users={users} forceRefresh={forceRefresh}/>
 
                     <button onClick={addUserClickHandler} className="btn-add btn">Add new user</button>
 
@@ -79,7 +83,7 @@ function App() {
             {/* <!-- User details component  --> */}
             {/* <!-- Create/Edit Form component  --> */}
             {showCreateUser &&
-                <CreateUser
+                <UserCreateModal
                     onClose={addUserCloseHandler}
                     onSubmit={addUserSubmitHandler}
                 />}

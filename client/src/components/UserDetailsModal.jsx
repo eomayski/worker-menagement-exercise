@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useEffect } from "react"
 import { fromIsoDate } from "../utils/datetimeUtils.js";
 
-export default function UserDetails({
+export default function UserDetailsModal({
     userId,
     onClose,
 }) {

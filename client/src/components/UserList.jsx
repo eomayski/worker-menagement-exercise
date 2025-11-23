@@ -1,13 +1,15 @@
 import { useState } from "react"
-import UserDetails from "./UserDetails.jsx"
+import UserDetailsModal from "./UserDetailsModal.jsx"
 import UserItem from "./UserItem.jsx"
+import UserDeleteModal from "./UserDeleteModal.jsx"
 
 function UserList({
     users,
+    forceRefresh,
 }) {
-
     const [showUserDetails, setShowUserDetails] = useState(false)
     const [selectedUser, setSelectedUser] = useState(null)
+    const [showUserDelete, setShowUserDelete] = useState(false)
 
     const detailsClickHandler = (userId) => {
         setSelectedUser(userId);
@@ -16,6 +18,14 @@ function UserList({
 
     const closeModalHandler = () => {
         setShowUserDetails(false)
+        setShowUserDelete(false)
+        setSelectedUser(null);
+    }
+
+
+    const deleteClickHandler = (userId) => {
+        setSelectedUser(userId);
+        setShowUserDelete(true);
     }
 
     return (
@@ -82,14 +92,22 @@ function UserList({
                                 {...user} 
                                 key={user._id} 
                                 onDetailsClick={detailsClickHandler}
+                                onDeleteClick={deleteClickHandler}
                             />))}
                     </tbody>
                 </table>
                 {showUserDetails && 
-                <UserDetails
+                <UserDetailsModal
                     userId={selectedUser}
                     onClose={closeModalHandler}
                 />}
+
+                {showUserDelete && (
+                    <UserDeleteModal
+                        userId={selectedUser}
+                        onClose={closeModalHandler}
+                        forceRefresh={forceRefresh}
+                    />)}
             </div>
     )
 }
