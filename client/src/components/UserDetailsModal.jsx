@@ -14,7 +14,7 @@ export default function UserDetailsModal({
             .then(result => {
                 setUser(result);
             })
-    }, []);
+    }, [userId]);
 
 
     return (

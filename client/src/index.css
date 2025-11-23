@@ -340,6 +340,11 @@ ul {
   border-color: teal transparent teal transparent;
   animation: spinner 1.2s linear infinite;
 }
+
+.active-icon-up {
+    transform: rotate(180deg);
+}
+
 @keyframes spinner {
   0% {
     transform: rotate(0deg);
