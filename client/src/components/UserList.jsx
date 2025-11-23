@@ -1,9 +1,22 @@
+import { useState } from "react"
 import UserDetails from "./UserDetails.jsx"
 import UserItem from "./UserItem.jsx"
 
 function UserList({
     users,
 }) {
+
+    const [showUserDetails, setShowUserDetails] = useState(false)
+    const [selectedUser, setSelectedUser] = useState(null)
+
+    const detailsClickHandler = (userId) => {
+        setSelectedUser(userId);
+        setShowUserDetails(true);
+    }
+
+    const closeModalHandler = () => {
+        setShowUserDetails(false)
+    }
 
     return (
             <div className="table-wrapper">
@@ -64,10 +77,19 @@ function UserList({
                     </thead>
                     <tbody>
                         {/* <!-- Table row component --> */}
-                        {users.map(user => <UserItem key={user._id} {...user} />)}
+                        {users.map(user => (
+                            <UserItem
+                                {...user} 
+                                key={user._id} 
+                                onDetailsClick={detailsClickHandler}
+                            />))}
                     </tbody>
                 </table>
-                <UserDetails/>
+                {showUserDetails && 
+                <UserDetails
+                    userId={selectedUser}
+                    onClose={closeModalHandler}
+                />}
             </div>
     )
 }
